@@ -1,5 +1,7 @@
 package matricesdispersas;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ASUS
@@ -53,6 +55,18 @@ public class Tripleta {
 
         for (int k = 0; k < Mtri[0][2]; k++) {
             System.out.println("|" + Mtri[k][0] + "|" + Mtri[k][1] + "|" + Mtri[k][2] + "|");
+        }
+    }
+
+    public void Insertar(int i, int j, int d) {
+        if (i < this.Mtri[0][0] && j < this.Mtri[0][1]) {
+            if (i >= 0 && j >= 0) {
+                for (int k = 1; k < this.Mtri[0][2]; k++) {
+                    if (this.Mtri[k][0] == i && this.Mtri[k][0] == j) {
+                        
+                    }
+                }
+            }
         }
     }
 }
