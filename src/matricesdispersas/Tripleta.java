@@ -63,7 +63,30 @@ public class Tripleta {
             if (i >= 0 && j >= 0) {
                 for (int k = 1; k < this.Mtri[0][2]; k++) {
                     if (this.Mtri[k][0] == i && this.Mtri[k][0] == j) {
-                        
+
+                        boolean menu;
+                        int opc = Integer.parseInt(JOptionPane.showInputDialog("Qué desea hacer con el dato encontrado:\n" + "1. Sumar ambos datos\n" + "2. Reemplazar el actual por el nuevo\n" + "3. Dejar el dato actual\n"));
+                        do {
+                            switch (opc) {
+                                case 1:
+                                    this.Mtri[i][j] = d + this.Mtri[i][j];
+                                    menu = false;
+                                    break;
+                                case 2:
+                                    this.Mtri[i][j] = d;
+                                    menu = false;
+                                    break;
+                                case 3:
+                                    menu = false;
+                                    break;
+                            }
+
+                        } while (menu = true);
+                    }
+                    else {
+                        if(this.Mtri[k][0] == i && this.Mtri[k][0] != j){
+                            
+                        }
                     }
                 }
             }
