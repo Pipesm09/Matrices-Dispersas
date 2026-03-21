@@ -56,38 +56,125 @@ public class Tripleta {
         for (int k = 0; k < Mtri[0][2]; k++) {
             System.out.println("|" + Mtri[k][0] + "|" + Mtri[k][1] + "|" + Mtri[k][2] + "|");
         }
+        System.out.println("\n");
+    }
+
+    private void insertarEnPos(int pos, int i, int j, int d) {
+
+        int[][] Ma = new int[this.Mtri[0][2] + 2][3];
+
+        Ma[0][0] = this.Mtri[0][0];
+        Ma[0][1] = this.Mtri[0][1];
+        Ma[0][2] = this.Mtri[0][2] + 1;
+
+        int p = 1;
+
+        for (int q = 1; q <= Ma[0][2]; q++) {
+
+            if (q == pos) {
+                // insertar el nuevo dato
+                Ma[q][0] = i;
+                Ma[q][1] = j;
+                Ma[q][2] = d;
+            } else {
+                // copiar datos ya existentes
+                Ma[q][0] = this.Mtri[p][0];
+                Ma[q][1] = this.Mtri[p][1];
+                Ma[q][2] = this.Mtri[p][2];
+                p++;
+            }
+        }
+        //Actualizar la tripleta con la auxiliar
+        this.Mtri = Ma;
+
     }
 
     public void Insertar(int i, int j, int d) {
-        if (i < this.Mtri[0][0] && j < this.Mtri[0][1]) {
-            if (i >= 0 && j >= 0) {
-                for (int k = 1; k < this.Mtri[0][2]; k++) {
-                    if (this.Mtri[k][0] == i && this.Mtri[k][0] == j) {
+        if (i < 0 || i >= this.Mtri[0][0] || j < 0 || j >= this.Mtri[0][1]) {
+            JOptionPane.showMessageDialog(null,
+                    "Error: la posición (" + i + "," + j + ") está fuera de la matriz.\n"
+                    + "Indices válidos de filas: 0 a " + (this.Mtri[0][0] - 1) + "\n"
+                    + "Indices válidos de columnas: 0 a " + (this.Mtri[0][1] - 1));
+            return;
+        }
+        if (i >= 0 && i < this.Mtri[0][0] && j >= 0 && j < this.Mtri[0][1]) {
+            for (int k = 1; k <= this.Mtri[0][2]; k++) {
+                if (this.Mtri[k][0] == i && this.Mtri[k][1] == j){
 
-                        boolean menu;
-                        int opc = Integer.parseInt(JOptionPane.showInputDialog("Qué desea hacer con el dato encontrado:\n" + "1. Sumar ambos datos\n" + "2. Reemplazar el actual por el nuevo\n" + "3. Dejar el dato actual\n"));
-                        do {
-                            switch (opc) {
-                                case 1:
-                                    this.Mtri[i][j] = d + this.Mtri[i][j];
-                                    menu = false;
-                                    break;
-                                case 2:
-                                    this.Mtri[i][j] = d;
-                                    menu = false;
-                                    break;
-                                case 3:
-                                    menu = false;
-                                    break;
-                            }
+                    int opc = Integer.parseInt(JOptionPane.showInputDialog("Qué desea hacer con el dato encontrado:\n" + 
+                            "1. Sumar ambos datos\n" + "2. Reemplazar el actual por el nuevo\n" + "3. Dejar el dato actual\n"));
+                    boolean menu = true;
+                    do {
 
-                        } while (menu = true);
-                    }
-                    else {
-                        if(this.Mtri[k][0] == i && this.Mtri[k][0] != j){
-                            
+                        switch (opc) {
+                            case 1:
+                                this.Mtri[k][2] = d + this.Mtri[k][2];
+                                menu = false;
+                                break;
+                            case 2:
+                                this.Mtri[k][2] = d;
+                                menu = false;
+                                break;
+                            case 3:
+                                menu = false;
+                                break;
                         }
+
+                    } while (menu);
+                    return;
+                }
+                if (this.Mtri[k][0] == i && j < this.Mtri[k][1]) { //En este caso se inserta ANTES respecto a la posicion actual de la tripleta
+                    insertarEnPos(k, i, j, d);
+                    return;
+                }
+                if (i < this.Mtri[k][0]) {
+                    insertarEnPos(k, i, j, d);
+                    return;
+                }
+            }
+        }
+    }
+
+    public void Eliminar(int i, int j) {
+        if (i < 0 || i >= this.Mtri[0][0] || j < 0 || j >= this.Mtri[0][1]) {
+            JOptionPane.showMessageDialog(null,
+                    "Posición inválida\n\n"
+                    + "Intentaste eliminar en (" + i + "," + j + ")\n"
+                    + "Indices validos de filas: 0 a " + (this.Mtri[0][0] - 1) + "\n"
+                    + "Indices validos de columnas: 0 a " + (this.Mtri[0][1] - 1));
+            return;
+        }
+
+        if (i >= 0 && i < this.Mtri[0][0] && j >= 0 && j < this.Mtri[0][1]) {
+            for (int k = 1; k <= this.Mtri[0][2]; k++) {
+                if (this.Mtri[k][0] == i && this.Mtri[k][1] == j){
+                    
+                    // Crear nueva tripleta con un dato menos
+                    int[][] Ma = new int[this.Mtri[0][2] + 1][3];
+
+                    // copiar información de la matriz
+                    Ma[0][0] = this.Mtri[0][0]; // filas
+                    Ma[0][1] = this.Mtri[0][1]; // columnas
+                    Ma[0][2] = this.Mtri[0][2] - 1; // nueva cantidad
+
+                    int p = 1;
+
+                    for (int q = 1; q <= this.Mtri[0][2]; q++) {
+                        int pos = k;
+                        if (q == pos) {
+                            // No se copia el dato que el usuario dio
+                            continue;
+                        }
+
+                        // copiar los otros datos
+                        Ma[p][0] = this.Mtri[q][0];
+                        Ma[p][1] = this.Mtri[q][1];
+                        Ma[p][2] = this.Mtri[q][2];
+                        p++;
                     }
+
+                    // Actualizar la tripleta original
+                    this.Mtri = Ma;
                 }
             }
         }

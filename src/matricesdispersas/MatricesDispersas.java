@@ -23,13 +23,28 @@ public class MatricesDispersas {
         Tripleta T1 = new Tripleta(N);
         T1.LlenarTripleta(Mat);
         T1.Mostrar();
-
-        //Tripleta T1 = new Tripleta(ContarDatos(Mat));
+        
         do {
             opc = menu();
             switch (opc) {
                 case 1:
-
+                    T1.Mostrar();
+                    break;
+                case 2:
+                    int i;
+                    i = Integer.parseInt(JOptionPane.showInputDialog("Ingrese en que fila desea insertar el dato: "));
+                    int j;
+                    j = Integer.parseInt(JOptionPane.showInputDialog("Ingrese en que columna desea insertar el dato: "));
+                    int d;
+                    d = Integer.parseInt(JOptionPane.showInputDialog("Ingrese el dato que desea insertar en la tripleta: "));
+                    T1.Insertar(i, j, d);
+                    T1.Mostrar();
+                    break;
+                case 3: 
+                    i = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la fila del dato que desea eliminar: "));
+                    j = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la columna del dato que desea eliminar: "));
+                    T1.Eliminar(i, j);
+                    T1.Mostrar();
                     break;
             }
 
@@ -39,7 +54,7 @@ public class MatricesDispersas {
     public static int menu() {
 
         int opc = Integer.parseInt(JOptionPane.showInputDialog("*Menu pricipal*\n"
-                + "1. Mostar\n" + "2. Insertar\n" + "3. Sumar\n" + "4. Multiplicar\n" + "5. Salir"));
+                + "1. Mostar Tripleta\n" + "2. Insertar dato\n" + "3. Eliminar dato\n" + "4. Multiplicar\n" + "5. Salir"));
         return opc;
     }
 
@@ -62,7 +77,6 @@ public class MatricesDispersas {
                     Mat[i][j] = 0; // se queda en cero
                 } else { //Si el valor aleatorio entre 1 y 0 es 1
                     int valor = valores.nextInt(21) - 10; // 
-
                     // decidir si es positivo o negativo
                     if (valores.nextBoolean()) {
                         valor = -valor;
