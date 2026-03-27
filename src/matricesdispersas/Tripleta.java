@@ -252,6 +252,7 @@ public class Tripleta {
         //Valido si el numero de columans de la primera=al numero de filas de la segunda
         if (A.getMtri(0, 1) != B.getMtri(0, 0)) {
             System.out.println("No se pueden multiplicar las tripletas");
+            return null;
         }
         int i = 1; //me ayudara a cambiar de filas
         int k = 1; //me ayudara a llenar la matriz con los datos ya multiplicados
@@ -299,17 +300,28 @@ public class Tripleta {
         for (int k=1; k<=this.Mtri[0][2];k++){
             //saco el numero de columnas donde comienza
             int ColumnaActual=this.Mtri[k][1];
-            acumulador[ColumnaActual]+=this.Mtri[k][1];
+            acumulador[ColumnaActual]+=this.Mtri[k][2];
         }
         System.out.println("Total de la suma");
-        for (int i=1;i<this.Mtri[0][1];i++){
-            System.out.println(" de la columna "+i+"es ="+acumulador[i]);
+        for (int i=0;i<this.Mtri[0][1];i++){
+            System.out.println(" de la columna "+i+" es ="+acumulador[i]);
         }
     }
-    public int[] SumarFilas(){
-        int[] suma = new int[this.Mtri[0][0]];
-        
-        
-        return suma;
+    
+    public void SumarFilas() {
+
+    int[] suma = new int[this.Mtri[0][0]]; // número de filas
+
+    for (int k = 1; k <= this.Mtri[0][2]; k++) {
+
+        int fila = this.Mtri[k][0];
+        int valor = this.Mtri[k][2];
+
+        suma[fila] += valor;
     }
+    System.out.println("Total de la suma");
+        for (int i=0;i<this.Mtri[0][0];i++){
+            System.out.println(" de la fila " + (i-1) +" es = "+suma[i]);
+        }
+}
 }

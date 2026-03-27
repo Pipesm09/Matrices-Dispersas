@@ -23,7 +23,7 @@ public class MatricesDispersas {
         Tripleta T1 = new Tripleta(N);
         T1.LlenarTripleta(Mat);
         T1.Mostrar();
-        
+
         do {
             opc = menu();
             switch (opc) {
@@ -40,14 +40,14 @@ public class MatricesDispersas {
                     T1.Insertar(i, j, d);
                     T1.Mostrar();
                     break;
-                case 3: 
+                case 3:
                     i = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la fila del dato que desea eliminar: "));
                     j = Integer.parseInt(JOptionPane.showInputDialog("Ingrese la columna del dato que desea eliminar: "));
                     T1.Eliminar(i, j);
                     T1.Mostrar();
                     break;
-            
-            case 4:
+
+                case 4:
                     System.out.println("\n=== SUMAR MATRICES ===");
                     System.out.println("Para sumar, se necesita crear la SEGUNDA matriz:");
 
@@ -80,8 +80,20 @@ public class MatricesDispersas {
                     int maxDatosM = T1.getMtri(0, 2) * T4.getMtri(0, 2);
                     Tripleta T5 = new Tripleta(maxDatosM);
                     T5.MultiplicarTri(T1, T4, T5);
-                                        System.out.println("\n--- MATRIZ 3 (T3) ---");
-                    T5.Mostrar();
+                    Tripleta resultado = T5.MultiplicarTri(T1, T4, T5);
+                    if(resultado!=null){
+                        System.out.println("\n--- MATRIZ 3 (T3) ---");
+                    resultado.Mostrar();
+                    } else{
+                        System.out.println("Cancelada por no tener dimensiones iguales bobo");
+                    }                  
+                   
+                    break;
+                case 6:
+                    T1.SumarColumnas();
+                    break;
+                case 7:
+                    T1.SumarFilas();
                     break;
             }
         } while (opc != 0);
@@ -109,7 +121,7 @@ public class MatricesDispersas {
         // Llenar la matriz
         for (int i = 0; i < filas; i++) {
             for (int j = 0; j < columnas; j++) {
-                if (valores.nextInt(2) == 0)  { //Si el valor aleatorio entre 1 y 0 es 0
+                if (valores.nextInt(2) == 0) { //Si el valor aleatorio entre 1 y 0 es 0
                     Mat[i][j] = 0; // se queda en cero
                 } else { //Si el valor aleatorio entre 1 y 0 es 1
                     int valor = valores.nextInt(21) - 10; // 

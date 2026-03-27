@@ -23,7 +23,7 @@ public class Forma1 {
     public void LlenarMD(int[][] Mat) {
         Paso1(Mat.length, Mat[0].length);
         Paso2(Mat);
-        Paso3();
+        Paso3(Mat);
     }
 
     private void Paso1(int n, int m) {
@@ -53,20 +53,33 @@ public class Forma1 {
         Nodo p = Punta.getLiga(), q = p, x;
         for (int i = 0; i < Mat.length; i++) {
             for (int j = 0; j < Mat[0].length; j++) {
-                if(Mat[i][j]!=0){
-                   x = new Nodo(i ,j ,Mat[i][j]); 
-                   q.setLf(x);
-                   q = x;
+                if (Mat[i][j] != 0) {
+                    x = new Nodo(i, j, Mat[i][j]);
+                    q.setLf(x);
+                    q = x;
                 }
                 q.setLf(p);
                 p = p.getLiga();
                 q = p;
             }
         }
+    }
+    
 
     
 
-    private void Paso3() {
+    private void Paso3(int[][] Mat) {
+        Nodo RC = Punta.getLiga();
+        Nodo a = RC;
+        Nodo p = Punta.getLiga();
+        Nodo q = p.getLiga();
 
+        while (RC != Punta) {
+            while (p != Punta) {
+                while (q != p) {
+
+                }
+            }
+        }
     }
 }
