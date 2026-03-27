@@ -47,6 +47,42 @@ public class MatricesDispersas {
                     T1.Mostrar();
                     break;
             }
+            case 4:
+                    System.out.println("\n=== SUMAR MATRICES ===");
+                    System.out.println("Para sumar, se necesita crear la SEGUNDA matriz:");
+
+                    // Creamos la segunda matriz tradicional
+                    int Mat2[][] = CrearMatriz();
+                    int N2 = ContarDatos(Mat2);
+
+                    // La convertimos a Tripleta
+                    Tripleta T2 = new Tripleta(N2);
+                    T2.LlenarTripleta(Mat2);
+                    System.out.println("\n--- MATRIZ 2 (T2) ---");
+                    T2.Mostrar();
+                    // Creamos T3 con el tamaño máximo posible (Total de datos de T1 + Total de datos de T2)
+                    int maxDatos = T1.getMatriz(0, 2) + T2.getMatriz(0, 2);
+                    Tripleta T3 = new Tripleta(maxDatos);
+                    T3.SumarTripleta(T1, T2, T3);
+                    System.out.println("\n--- MATRIZ 3 (T3) ---");
+                    T3.Mostrar();
+                    break;
+
+                case 5:
+                    System.out.println("Para multiplicar, se necesita crear la SEGUNDA matriz:");
+                    int Mat3[][] = CrearMatriz();
+                    int N3 = ContarDatos(Mat3);
+                    Tripleta T4 = new Tripleta(N3);
+                    T4.LlenarTripleta(Mat3);
+                    System.out.println("\n--- MATRIZ 2 (T2) ---");
+                    T4.Mostrar();
+                    //para el tamaño de la matriz ya multiplicada toca multiplicar los datos totales de cada tripleta
+                    int maxDatosM = T1.getMatriz(0, 2) * T4.getMatriz(0, 2);
+                    Tripleta T5 = new Tripleta(maxDatosM);
+                    T5.MultiplicarTri(T1, T4, T5);
+                                        System.out.println("\n--- MATRIZ 3 (T3) ---");
+                    T5.Mostrar();
+                    break;
 
         } while (opc != 0);
     }
