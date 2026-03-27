@@ -179,4 +179,118 @@ public class Tripleta {
             }
         }
     }
+        public Tripleta SumarTripleta(Tripleta A, Tripleta B, Tripleta C) {
+        int i = 1, j = 1, k = 1;
+        while (i <= A.getMatriz(0, 2) || j <= B.getMatriz(0, 2)) {
+            if (i <= A.getMatriz(0, 2) && j <= B.getMatriz(0, 2)) {
+                if (A.getMatriz(i, 0) == B.getMatriz(j, 0) && A.getMatriz(i, 1) == B.getMatriz(j, 1)) {
+                    int dato = A.getMatriz(i, 2) + B.getMatriz(j, 2);
+                    if (dato != 0) {
+                        // modifico la tripleta C con el primer lugar (dando la posicion) el segundo donde quiero inserta (columna, fila o dato) el tercero con el valor qeu quiero insertar
+                        //ingreso la fila que se supone sumo
+                        C.setMatriz(k, 0, A.getMatriz(i, 0));
+                        //ingreso la columna
+                        C.setMatriz(k, 1, A.getMatriz(i, 1));
+                        //ingreso el dato != de 0
+                        C.setMatriz(k, 2, dato);
+                        i++;
+                        j++;
+                        k++;
+                    } else {
+                        i++;
+                        j++;
+                    }
+                } else if (A.getMatriz(i, 0) < B.getMatriz(j, 0) || (A.getMatriz(i, 0) == B.getMatriz(j, 0) && A.getMatriz(i, 1) < B.getMatriz(j, 1))) {
+                    //ingreso la fila que se supone sumo
+                    C.setMatriz(k, 0, A.getMatriz(i, 0));
+                    //ingreso la columna
+                    C.setMatriz(k, 1, A.getMatriz(i, 1));
+                    //ingreso el dato != de 0
+                    C.setMatriz(k, 2, A.getMatriz(i, 2));
+                    i++;
+                    k++;
+                } else {
+                    //ingreso la fila
+                    C.setMatriz(k, 0, B.getMatriz(j, 0));
+                    //ingreso la columna
+                    C.setMatriz(k, 1, B.getMatriz(j, 1));
+                    //ingreso el dato != de 0
+                    C.setMatriz(k, 2, B.getMatriz(j, 2));
+                    j++;
+                    k++;
+                }
+            } else {
+                //si la tripleta A todavia tiene datos
+                if (i <= A.getMatriz(0, 2)) {
+                    //ingreso la fila que se supone sumo
+                    C.setMatriz(k, 0, A.getMatriz(i, 0));
+                    //ingreso la columna
+                    C.setMatriz(k, 1, A.getMatriz(i, 1));
+                    //ingreso el dato != de 0
+                    C.setMatriz(k, 2, A.getMatriz(i, 2));
+                    i++;
+                    k++;
+                }
+                if (j <= B.getMatriz(0, 2)) {
+                    //ingreso la fila que se supone sumo
+                    C.setMatriz(k, 0, B.getMatriz(j, 0));
+                    //ingreso la columna
+                    C.setMatriz(k, 1, B.getMatriz(j, 1));
+                    //ingreso el dato != de 0
+                    C.setMatriz(k, 2, B.getMatriz(j, 2));
+                    j++;
+                    k++;
+                }
+            }
+        }
+        // k-1 porque k avanzó una última vez antes de salir del ciclo
+        C.setMatriz(0, 2, k - 1);
+        return C;
+    }
+
+    public Tripleta MultiplicarTri(Tripleta A, Tripleta B, Tripleta C) {
+        //Valido si el numero de columans de la primera=al numero de filas de la segunda
+        if (A.getMatriz(0, 1) != B.getMatriz(0, 0)) {
+            System.out.println("No se pueden multiplicar las tripletas");
+        }
+        int i = 1; //me ayudara a cambiar de filas
+        int k = 1; //me ayudara a llenar la matriz con los datos ya multiplicados
+        int[] acumulador = new int[B.getMatriz(0, 1)]; //recogera los datos ya multiplicados
+        //para saber cuando cambiar de fila, mientras A tenga datos
+        while (i <= A.getMatriz(0, 2)) {
+            int posFactual = A.getMatriz(i, 0);//indica donde esta la fila en este momento
+            int posFfinal = i; //indica hasta donde ira la fila para poder pasar a la otra
+            while (posFfinal + 1 <= A.getMatriz(0, 2) && A.getMatriz(posFfinal + 1, 0) == posFactual) {
+                posFfinal++;//hace que confirme si se esta en la misma fila fila
+            }
+            //inicia donde terminen la fila, o sea si la fila 0 termino en la posicion 3, ahi inicia y termnia hasta que se llegue al final de la fila
+            for (int pos = i; pos <= posFfinal; pos++) {
+                //recorre escaniando cada espacio de B hasta encontrar la condicion de columnas de A= filas de B
+                for (int j = 1; j <= B.getMatriz(0, 2); j++) {
+                    if (B.getMatriz(j, 0) == A.getMatriz(pos, 1)) {
+                        //multiplica lo que sean igual en columna con fila y lo guarda en un array
+                        acumulador[B.getMatriz(j, 1)] += A.getMatriz(pos, 2) * B.getMatriz(j, 2);
+                    }
+                }
+            }
+            //se llena la nueva tripleta con las multiplicaciones. Va desde 0 porque los arreglos comeinzan en 0
+            //y va hasta el numero de columnas de B, porque como esta en el while ya se sabe la fila en la que esta cada dato
+            for (int c = 0; c < B.getMatriz(0, 1); c++) {
+                //verifica que una multipliacion no sea 0, por si las moscas XDXdxdxddXDXxdXDxd
+                if (acumulador[c] != 0) {
+                    C.setMatriz(k, 0, posFactual);//posicion fila
+                    C.setMatriz(k, 1, c);//posicion de columnas B
+                    C.setMatriz(k, 2, acumulador[c]);//dato multiplicado
+                    k++;
+                    acumulador[c]=0;
+                }
+            }
+            i=posFfinal+1;
+            //se setea la posicion 0 de la nueva tirpleta c
+            C.setMatriz(0, 0, A.getMatriz(0, 0));
+            C.setMatriz(0, 1, B.getMatriz(0, 1));
+            C.setMatriz(0, 2, k - 1);//la k termina una posicion adelante
+        }
+        return C;
+    }
 }
