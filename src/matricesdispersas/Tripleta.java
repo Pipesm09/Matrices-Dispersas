@@ -293,7 +293,19 @@ public class Tripleta {
         }
         return C;
     }
-    
+    public void SumarColumnas() {
+        int[] acumulador = new int[this.Matriz[0][1]]; //recogera los datos ya multiplicados
+        //recorre y suma los datos de igual columna
+        for (int k=1; k<=this.Matriz[0][2];k++){
+            //saco el numero de columnas donde comienza
+            int ColumnaActual=this.Matriz[k][1];
+            acumulador[ColumnaActual]+=this.Matriz[k][1];
+        }
+        System.out.println("Total de la suma");
+        for (int i=1;i<this.Matriz[0][1];i++){
+            System.out.println(" de la columna "+i+"es ="+acumulador[i]);
+        }
+    }
     public int[] SumarFilas(){
         int[] suma = new int[this.Mtri[0][0]];
         
