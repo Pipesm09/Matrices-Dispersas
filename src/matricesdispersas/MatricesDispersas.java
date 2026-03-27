@@ -46,7 +46,7 @@ public class MatricesDispersas {
                     T1.Eliminar(i, j);
                     T1.Mostrar();
                     break;
-            }
+            
             case 4:
                     System.out.println("\n=== SUMAR MATRICES ===");
                     System.out.println("Para sumar, se necesita crear la SEGUNDA matriz:");
@@ -61,7 +61,7 @@ public class MatricesDispersas {
                     System.out.println("\n--- MATRIZ 2 (T2) ---");
                     T2.Mostrar();
                     // Creamos T3 con el tamaño máximo posible (Total de datos de T1 + Total de datos de T2)
-                    int maxDatos = T1.getMatriz(0, 2) + T2.getMatriz(0, 2);
+                    int maxDatos = T1.getMtri(0, 2) + T2.getMtri(0, 2);
                     Tripleta T3 = new Tripleta(maxDatos);
                     T3.SumarTripleta(T1, T2, T3);
                     System.out.println("\n--- MATRIZ 3 (T3) ---");
@@ -77,13 +77,13 @@ public class MatricesDispersas {
                     System.out.println("\n--- MATRIZ 2 (T2) ---");
                     T4.Mostrar();
                     //para el tamaño de la matriz ya multiplicada toca multiplicar los datos totales de cada tripleta
-                    int maxDatosM = T1.getMatriz(0, 2) * T4.getMatriz(0, 2);
+                    int maxDatosM = T1.getMtri(0, 2) * T4.getMtri(0, 2);
                     Tripleta T5 = new Tripleta(maxDatosM);
                     T5.MultiplicarTri(T1, T4, T5);
                                         System.out.println("\n--- MATRIZ 3 (T3) ---");
                     T5.Mostrar();
                     break;
-
+            }
         } while (opc != 0);
     }
 
