@@ -103,40 +103,90 @@ private void Paso3() {
             cabezaCol = cabezaCol.getLiga();
         }
     }
-public void Mostrar() {
+public void MostrarVisual() {
         if (Punta == null) {
-            System.out.println("La matriz Forma 1 está vacía.");
+            System.out.println("La matriz está vacía.");
             return;
         }
 
-        // Sacamos el total de filas del nodo Maestro
-        int totalFilas = Punta.getFila(); 
-        Nodo cabeza = Punta.getLiga(); // Nos paramos en el primer Nodo Cabeza
+        System.out.println("\n=== ESTRUCTURA VISUAL FORMA 1 ===");
+        System.out.println("NODO MAESTRO (Punta):");
+        imprimirFilaNodos(new Nodo[]{ Punta }); // Imprime el nodo maestro
+        System.out.println("       |");
+        System.out.println("       V (Tercera Liga)");
 
-        System.out.println("--- MATRIZ EN FORMA 1 ---");
-        System.out.println("Fila\tCol\tDato");
-        System.out.println("-------------------------");
+        // Calculamos cuántos nodos cabeza hay en total (el mayor entre filas y cols)
+        int n = Punta.getFila();
+        int m = Punta.getCol();
+        int totalCabezas = Math.max(n, m);
+        
+        Nodo cabeza = Punta.getLiga();
 
-        // Vamos a recorrer fila por fila
-        for (int i = 0; i < totalFilas; i++) {
+        // Recorremos cabecera por cabecera
+        for (int i = 0; i < totalCabezas; i++) {
             
-            // Entramos a los datos de la fila actual
-            Nodo actual = cabeza.getLf(); 
+            // Vamos a recolectar todos los nodos de esta fila para dibujarlos juntos
+            java.util.ArrayList<Nodo> filaNodos = new java.util.ArrayList<>();
+            filaNodos.add(cabeza); // Añadimos el Nodo Cabeza
             
-            // Recorremos la fila hasta dar la vuelta completa
-            while (actual != cabeza) {
-                // Imprimimos el dato
-                System.out.println(actual.getFila() + "\t" + 
-                                   actual.getCol() + "\t" + 
-                                   actual.getDato());
-                
-                // Avanzamos al siguiente dato de la fila
-                actual = actual.getLf(); 
+            Nodo actual = cabeza.getLf();
+            if (actual != null) {
+                // Caminamos por la fila recogiendo las "casas"
+                while (actual != cabeza) {
+                    filaNodos.add(actual);
+                    actual = actual.getLf();
+                }
             }
+
+            // Llamamos al método que dibuja la fila completa
+            imprimirFilaNodos(filaNodos.toArray(new Nodo[0]));
+
+            cabeza = cabeza.getLiga(); // Bajamos a la siguiente cabecera
             
-            // Bajamos al Nodo Cabeza de la siguiente fila
-            cabeza = cabeza.getLiga(); 
+            // Flechas hacia abajo
+            if (i < totalCabezas - 1) {
+                System.out.println("       |");
+                System.out.println("       V");
+            }
         }
-        System.out.println("-------------------------");
+        System.out.println("=== FIN DE LA ESTRUCTURA ===\n");
+    }
+
+    // --- MÉTODO AUXILIAR PARA DIBUJAR LAS CAJITAS ---
+    private void imprimirFilaNodos(Nodo[] nodos) {
+        StringBuilder[] lineas = new StringBuilder[5];
+        for (int i = 0; i < 5; i++) {
+            lineas[i] = new StringBuilder();
+        }
+
+        for (int k = 0; k < nodos.length; k++) {
+            Nodo n = nodos[k];
+            
+            // FORMATEAMOS LOS DATOS (¡AQUÍ CAMBIA LOS GETTERS SI ES NECESARIO!)
+            String sf = String.format("%2d", n.getFila()); 
+            String sc = String.format("%2d", n.getCol());
+            String sd = String.format("%10d", n.getDato());
+
+            // CONSTRUIMOS EL DIBUJO DE TU CUADERNO
+            lineas[0].append("+----+--+--+----+");
+            lineas[1].append("| LC |").append(sf).append("|").append(sc).append("| LF |");
+            lineas[2].append("+----+--+--+----+");
+            lineas[3].append("|").append(sd).append("|Liga|");
+            lineas[4].append("+----------+----+");
+
+            // Si hay otro nodo a la derecha, le ponemos la flechita de Liga Fila
+            if (k < nodos.length - 1) {
+                lineas[0].append("     ");
+                lineas[1].append(" --> ");
+                lineas[2].append("     ");
+                lineas[3].append("     ");
+                lineas[4].append("     ");
+            }
+        }
+
+        // Imprimimos las 5 líneas que forman las cajas
+        for (int i = 0; i < 5; i++) {
+            System.out.println(lineas[i].toString());
+        }
     }
 }
