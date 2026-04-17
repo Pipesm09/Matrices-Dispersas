@@ -103,4 +103,40 @@ private void Paso3() {
             cabezaCol = cabezaCol.getLiga();
         }
     }
+public void Mostrar() {
+        if (Punta == null) {
+            System.out.println("La matriz Forma 1 está vacía.");
+            return;
+        }
+
+        // Sacamos el total de filas del nodo Maestro
+        int totalFilas = Punta.getFila(); 
+        Nodo cabeza = Punta.getLiga(); // Nos paramos en el primer Nodo Cabeza
+
+        System.out.println("--- MATRIZ EN FORMA 1 ---");
+        System.out.println("Fila\tCol\tDato");
+        System.out.println("-------------------------");
+
+        // Vamos a recorrer fila por fila
+        for (int i = 0; i < totalFilas; i++) {
+            
+            // Entramos a los datos de la fila actual
+            Nodo actual = cabeza.getLf(); 
+            
+            // Recorremos la fila hasta dar la vuelta completa
+            while (actual != cabeza) {
+                // Imprimimos el dato
+                System.out.println(actual.getFila() + "\t" + 
+                                   actual.getCol() + "\t" + 
+                                   actual.getDato());
+                
+                // Avanzamos al siguiente dato de la fila
+                actual = actual.getLf(); 
+            }
+            
+            // Bajamos al Nodo Cabeza de la siguiente fila
+            cabeza = cabeza.getLiga(); 
+        }
+        System.out.println("-------------------------");
+    }
 }
