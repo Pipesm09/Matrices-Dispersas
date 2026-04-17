@@ -99,10 +99,10 @@ public class Tripleta {
         }
         if (i >= 0 && i < this.Mtri[0][0] && j >= 0 && j < this.Mtri[0][1]) {
             for (int k = 1; k <= this.Mtri[0][2]; k++) {
-                if (this.Mtri[k][0] == i && this.Mtri[k][1] == j){
+                if (this.Mtri[k][0] == i && this.Mtri[k][1] == j) {
 
-                    int opc = Integer.parseInt(JOptionPane.showInputDialog("Qué desea hacer con el dato encontrado:\n" + 
-                            "1. Sumar ambos datos\n" + "2. Reemplazar el actual por el nuevo\n" + "3. Dejar el dato actual\n"));
+                    int opc = Integer.parseInt(JOptionPane.showInputDialog("Qué desea hacer con el dato encontrado:\n"
+                            + "1. Sumar ambos datos\n" + "2. Reemplazar el actual por el nuevo\n" + "3. Dejar el dato actual\n"));
                     boolean menu = true;
                     do {
 
@@ -147,8 +147,8 @@ public class Tripleta {
 
         if (i >= 0 && i < this.Mtri[0][0] && j >= 0 && j < this.Mtri[0][1]) {
             for (int k = 1; k <= this.Mtri[0][2]; k++) {
-                if (this.Mtri[k][0] == i && this.Mtri[k][1] == j){
-                    
+                if (this.Mtri[k][0] == i && this.Mtri[k][1] == j) {
+
                     // Crear nueva tripleta con un dato menos
                     int[][] Ma = new int[this.Mtri[0][2] + 1][3];
 
@@ -179,7 +179,8 @@ public class Tripleta {
             }
         }
     }
-        public Tripleta SumarTripleta(Tripleta A, Tripleta B, Tripleta C) {
+
+    public Tripleta SumarTripleta(Tripleta A, Tripleta B, Tripleta C) {
         int i = 1, j = 1, k = 1;
         while (i <= A.getMtri(0, 2) || j <= B.getMtri(0, 2)) {
             if (i <= A.getMtri(0, 2) && j <= B.getMtri(0, 2)) {
@@ -283,10 +284,10 @@ public class Tripleta {
                     C.setMtri(k, 1, c);//posicion de columnas B
                     C.setMtri(k, 2, acumulador[c]);//dato multiplicado
                     k++;
-                    acumulador[c]=0;
+                    acumulador[c] = 0;
                 }
             }
-            i=posFfinal+1;
+            i = posFfinal + 1;
             //se setea la posicion 0 de la nueva tirpleta c
             C.setMtri(0, 0, A.getMtri(0, 0));
             C.setMtri(0, 1, B.getMtri(0, 1));
@@ -294,34 +295,35 @@ public class Tripleta {
         }
         return C;
     }
+
     public void SumarColumnas() {
         int[] acumulador = new int[this.Mtri[0][1]]; //recogera los datos ya multiplicados
         //recorre y suma los datos de igual columna
-        for (int k=1; k<=this.Mtri[0][2];k++){
+        for (int k = 1; k <= this.Mtri[0][2]; k++) {
             //saco el numero de columnas donde comienza
-            int ColumnaActual=this.Mtri[k][1];
-            acumulador[ColumnaActual]+=this.Mtri[k][2];
+            int ColumnaActual = this.Mtri[k][1];
+            acumulador[ColumnaActual] += this.Mtri[k][2];
         }
         System.out.println("Total de la suma");
-        for (int i=0;i<this.Mtri[0][1];i++){
-            System.out.println(" de la columna "+i+" es ="+acumulador[i]);
+        for (int i = 0; i < this.Mtri[0][1]; i++) {
+            System.out.println(" de la columna " + i + " es =" + acumulador[i]);
         }
     }
-    
+
     public void SumarFilas() {
 
-    int[] suma = new int[this.Mtri[0][0]]; // número de filas
+        int[] suma = new int[this.Mtri[0][0]]; // número de filas
 
-    for (int k = 1; k <= this.Mtri[0][2]; k++) {
+        for (int k = 1; k <= this.Mtri[0][2]; k++) {
 
-        int fila = this.Mtri[k][0];
-        int valor = this.Mtri[k][2];
+            int fila = this.Mtri[k][0];
+            int valor = this.Mtri[k][2];
 
-        suma[fila] += valor;
-    }
-    System.out.println("Total de la suma");
-        for (int i=0;i<this.Mtri[0][0];i++){
-            System.out.println(" de la fila " + (i-1) +" es = "+suma[i]);
+            suma[fila] += valor;
         }
-}
+        System.out.println("Total de la suma");
+        for (int i = 0; i < this.Mtri[0][0]; i++) {
+            System.out.println(" de la fila " + i + " es = " + suma[i]);
+        }
+    }
 }

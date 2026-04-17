@@ -77,7 +77,7 @@ public class Forma1 {
         while (RC != Punta) {
             while (p != Punta) {
                 while (q != p) {
-
+                    
                 }
             }
         }
