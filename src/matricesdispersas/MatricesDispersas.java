@@ -22,7 +22,8 @@ public class MatricesDispersas {
 
         Tripleta T1 = new Tripleta(N);
         T1.LlenarTripleta(Mat);
-        T1.Mostrar();
+        Forma2 F2 = new Forma2();
+        F2.LlenarMD(Mat);
 
         do {
             opc = menu();
@@ -101,8 +102,9 @@ public class MatricesDispersas {
 
     public static int menu() {
 
-        int opc = Integer.parseInt(JOptionPane.showInputDialog("*Menu pricipal*\n"
-                + "1. Mostar Tripleta\n" + "2. Insertar dato\n" + "3. Eliminar dato\n" + "4. Multiplicar\n" + "5. Salir"));
+        int opc = Integer.parseInt(JOptionPane.showInputDialog("Menu pricipal\n"
+                + "1. Mostar Tripleta\n" + "2. Insertar dato\n" + "3. Eliminar dato\n" + "4. Sumar matrices\n" + "5. Multiplicar matrices\n" 
+                + "6. Sumar por columnas\n" + "7. Sumar por filas\n" + "8. Mostrar forma 1"+ "9. Sumar 2 formas 1\n"));
         return opc;
     }
 
